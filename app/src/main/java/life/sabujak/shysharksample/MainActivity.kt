@@ -2,11 +2,13 @@ package life.sabujak.shysharksample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import life.sabujak.shyshark.ShySharkLayoutManager.Companion.SWIPE_BOTTOM
 import life.sabujak.shyshark.ShySharkLayoutManager.Companion.SWIPE_LEFT
 import life.sabujak.shyshark.ShySharkLayoutManager.Companion.SWIPE_RIGHT
 import life.sabujak.shyshark.ShySharkLayoutManager.Companion.SWIPE_TOP
+import life.sabujak.shyshark.ShySharkView
 import life.sabujak.shyshark.listener.OnSwipeListener
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val recyclerView = findViewById<ShySharkView>(R.id.recyclerView)
 
         recyclerView.adapter = SimpleAdapter(
             arrayListOf(
@@ -56,16 +60,23 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        fab_main_good.setOnClickListener {
+        val fabMainGood = findViewById<FloatingActionButton>(R.id.fab_main_good)
+        fabMainGood.setOnClickListener {
             recyclerView.performSwipe(SWIPE_RIGHT)
         }
-        fab_main_bad.setOnClickListener {
+
+        val fabMainBad = findViewById<FloatingActionButton>(R.id.fab_main_bad)
+        fabMainBad.setOnClickListener {
             recyclerView.performSwipe(SWIPE_LEFT)
         }
-        fab_main_next.setOnClickListener {
+
+        val fabMainNext = findViewById<FloatingActionButton>(R.id.fab_main_next)
+        fabMainNext.setOnClickListener {
             recyclerView.nextView()
         }
-        fab_main_previous.setOnClickListener {
+
+        val fabMainPrevious = findViewById<FloatingActionButton>(R.id.fab_main_previous)
+        fabMainPrevious.setOnClickListener {
             recyclerView.previousView()
         }
     }

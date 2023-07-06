@@ -309,13 +309,17 @@ class ShySharkLayoutManager(private val internalDragListener: OnInternalDragList
         updateListener: ((View) -> Unit)? = null,
         endAction: (() -> Unit)? = null
     ) {
-        ViewCompat.animate(view)
+        var animator = ViewCompat.animate(view)
             .x(x)
             .y(y)
             .setUpdateListener(updateListener)
             .setDuration(duration)
-            .withEndAction(endAction)
-            .start()
+
+        if (endAction != null) {
+            animator = animator.withEndAction(endAction)
+        }
+
+        animator.start()
     }
 
     private fun restoreScaleAnimation(view: View, duration: Long = 0) {
