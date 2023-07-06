@@ -11,7 +11,7 @@ import kotlin.math.abs
 import kotlin.math.sqrt
 
 
-class ShySharkLayoutManager(private val internalDragListener: OnInternalDragListener) :
+open class ShySharkLayoutManager(private val internalDragListener: OnInternalDragListener) :
     RecyclerView.LayoutManager() {
 
     companion object {
