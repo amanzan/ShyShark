@@ -11,7 +11,7 @@ import kotlin.math.abs
 import kotlin.math.sqrt
 
 
-open class ShySharkLayoutManager(private val internalDragListener: OnInternalDragListener) :
+open class ShySharkLayoutManager(val recyclerView: RecyclerView) :
     RecyclerView.LayoutManager() {
 
     companion object {
@@ -20,6 +20,11 @@ open class ShySharkLayoutManager(private val internalDragListener: OnInternalDra
         const val SWIPE_RIGHT = 1 shl 1
         const val SWIPE_TOP = 1 shl 2
         const val SWIPE_BOTTOM = 1 shl 3
+    }
+
+    var internalDragListener: OnInternalDragListener
+    init {
+        internalDragListener = getInternalDragListener()
     }
 
     private var onSwipeListener: OnSwipeListener? = null
@@ -118,6 +123,21 @@ open class ShySharkLayoutManager(private val internalDragListener: OnInternalDra
             }
         }
     }
+
+    private fun getInternalDragListener() = object :
+        OnInternalDragListener {
+        override fun onDrag(v: View, x: Float, y: Float) {
+            run {
+                changeChildViewScale(recyclerView, recyclerView.getChildViewHolder(v), x, y)
+                changeDragPercent(recyclerView, x, y)
+            }
+        }
+
+        override fun onDragEnded(v: View, x: Float, y: Float) {
+            onDragEnded(recyclerView, recyclerView.getChildViewHolder(v), x, y)
+        }
+    }
+
 
     fun nextView() {
         topPosition++

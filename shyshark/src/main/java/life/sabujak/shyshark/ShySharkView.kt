@@ -18,7 +18,7 @@ class ShySharkView(context: Context, attrs: AttributeSet?) : RecyclerView(contex
     private val shySharkLayoutManager: ShySharkLayoutManager
 
     init {
-        shySharkLayoutManager = ShySharkLayoutManager(getInternalDragListener())
+        shySharkLayoutManager = ShySharkLayoutManager(this)
             .apply {
                 context.theme?.obtainStyledAttributes(
                     attrs,
